@@ -7,8 +7,11 @@ const authRoutes = Router();
 
 
 const createUserSchema = z.object({
-    email: z.email(),
-    password: z.string().min(8, 'The Password must have at least 8 characters').max(255, 'The Password must have in maximum 255 characters')
+    email: z.string().email("Invalid email format"),
+    password: z
+        .string()
+        .min(8, "Password must have at least 8 characters")
+        .max(255, "Password must have at most 255 characters")
 })
 
 authRoutes.post('/register', validateBody(createUserSchema),async(req, res) => {
