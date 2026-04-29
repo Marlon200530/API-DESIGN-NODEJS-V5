@@ -6,6 +6,7 @@ import habitRoutes from './routes/habit.routes.ts';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
+import { errorHandler } from './middlewares/error-handler.ts';
 
 const app =  express();
 
@@ -35,6 +36,8 @@ app.get(`${prefix}/health`, (_req, res) => {
 app.use(`${prefix}/auth`, authRoutes);
 app.use(`${prefix}/users`, userRoutes);
 app.use(`${prefix}/habits`, habitRoutes)
+
+app.use(errorHandler);
 
 
 export default app;

@@ -9,17 +9,17 @@ import {
 } from "drizzle-orm/pg-core";
 
 import { relations } from "drizzle-orm";
-import { createInsertSchema } from "drizzle-zod";
+import {  createInsertSchema } from "drizzle-zod";
 import { createSelectSchema } from "drizzle-zod";
 
 export const users = pgTable("users", {
-  id: uuid("id").primaryKey(),
+  id: uuid("id").primaryKey().defaultRandom(),
   email: varchar("email", { length: 255 }).unique().notNull(),
   username: varchar("username", { length: 50 }).notNull().unique(),
   password: varchar("password", { length: 255 }).notNull(),
 
-  firstName: varchar("first_name", { length: 50 }).notNull(),
-  lastName: varchar("last_name", { length: 50 }).notNull(),
+  firstName: varchar("first_name", { length: 50 }),
+  lastName: varchar("last_name", { length: 50 }),
 
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
@@ -89,9 +89,9 @@ export type Entry = typeof entries.$inferInsert;
 export type Tag = typeof tags.$inferInsert;
 export type HabitTag = typeof habitTags.$inferInsert;
 
+export type NewUser = Omit<User, "id">;
+
 export const insertUserSchema = createInsertSchema(users);
 export const selectUserSchema = createSelectSchema(users)
-
-
 
 

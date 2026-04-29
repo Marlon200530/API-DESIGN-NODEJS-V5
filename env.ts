@@ -13,7 +13,6 @@ process.env.APP_STAGE = process.env.APP_STAGE || "dev";
 
 
 
-const _isProduction = process.env.APP_STAGE === "production";
 const isDevelopment = process.env.APP_STAGE === "dev";
 const isTesting = process.env.APP_STAGE === "test";
 
@@ -69,14 +68,3 @@ export const isDev = () => env.APP_STAGE === 'dev';
 export const isTest = () => env.APP_STAGE === 'test';
 
 export {env}
-
-
-
-
-import type { NextFunction, Request, RequestHandler, Response } from 'express';
-
-export const asyncHandler = (handler: (req: Request, res: Response, next: NextFunction) => Promise<unknown>): RequestHandler => {
-  return (req, res, next) => {
-    void handler(req, res, next).catch(next);
-  };
-};
