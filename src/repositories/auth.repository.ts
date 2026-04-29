@@ -1,4 +1,5 @@
-import { NewUser, users } from "../db/schema.ts";
+import type { NewUser } from "../db/schema.ts";
+import { users } from "../db/schema.ts";
 import { db } from "../db/connection.ts";
 import { eq, or } from "drizzle-orm";
 
